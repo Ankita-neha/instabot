@@ -3,7 +3,7 @@ import requests          # Here importing the requests library which is installe
 APP_ACCESS_TOKEN = '1599633091.2fc0da1.63f5a1608a3e4414b4d96117bca38027'
 BASE_URL = 'https://api.instagram.com/v1/'
 
-def self_info():         # this is the function which fetches my instagram details by using api.
+def self_info():         # this is the function which fetches my instagram profile details by using api.
     request_url = (BASE_URL +'users/self/?access_token=%s') % (APP_ACCESS_TOKEN)
     print 'REQUESTING URL FOR DATA : ' + request_url
     my_info = requests.get(request_url).json()
@@ -19,14 +19,3 @@ self_info()
 
 
 
-
-
-
-
-
-
-
-
-#data = requests.get('https://api.github.com/events')
-
-#print data.json()
