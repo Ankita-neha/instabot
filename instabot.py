@@ -21,7 +21,7 @@ self_info()
 
 
 #this function is used to fetch another user's details by entering instagram username and also it will return the userID
-def get_user_by_username(insta_username):
+def get_user_id_by_username(insta_username):
 
     request_url = (BASE_URL + 'users/search?q=%s&access_token=%s') % (insta_username, APP_ACCESS_TOKEN)
     print 'REQUESTING URL FOR DATA  : ' + request_url
@@ -40,6 +40,24 @@ def get_user_by_username(insta_username):
         print 'Status code other than 200 was received'
     return None
 
-get_user_by_username('shubham.is.here')
+get_user_id_by_username('shubham.is.here')
 
+
+def get_users_recent_posts(insta_username):              #This function fetches the recent uploaded posts by the user.
+
+    user_id = get_user_id_by_username(insta_username)
+    request_url = (BASE_URL + 'users/%s/media/recent/?access_token=%s') % (user_id, APP_ACCESS_TOKEN)
+    print 'REQUESTING URL FOR DATA  : ' + request_url
+
+    recent_posts = requests.get(request_url).json()
+
+    if recent_posts['meta']['code'] == 200:
+        if len(recent_posts['data']):
+            return recent_posts['data'][0]['id']
+        else:
+            print 'No recent post by this user!'
+    else:
+        print 'Status code other than 200'
+
+print get_users_recent_posts('shubham.is.here')
 
